@@ -8,25 +8,25 @@ from .serializers import *
 from .models import *
 from rest_framework import permissions
 from django.contrib.auth import login, logout
-from rest_framework.authentication import TokenAuthentication
+
+
+def get(request):
+    try:
+        request.query_params.dict()['username']
+    except KeyError:
+        return Response("Не введено имя пользователя", status=status.HTTP_400_BAD_REQUEST)
+    username = request.query_params.dict()['username']
+    password = secrets.token_urlsafe(10)
+    user = authenticate(username=username, password=password)
+    login(request, user)
+    try:
+        User.objects.create_user(username=username, password=password)
+    except IntegrityError:
+        return Response("Данное имя пользователя уже занято", status=status.HTTP_400_BAD_REQUEST)
+    return Response({"username": username, "password": password})
 
 
 class LoginView(APIView):
-
-    def get(self, request):
-        try:
-            request.query_params.dict()['username']
-        except KeyError:
-            return Response("Не введено имя пользователя", status=status.HTTP_400_BAD_REQUEST)
-        username = request.query_params.dict()['username']
-        password = secrets.token_urlsafe(10)
-        user = authenticate(username=username, password=password)
-        login(request, user)
-        try:
-            User.objects.create_user(username=username, password=password)
-        except IntegrityError:
-            return Response("Данное имя пользователя уже занято", status=status.HTTP_400_BAD_REQUEST)
-        return Response({"username": username, "password": password})
 
     def post(self, request):
         try:
