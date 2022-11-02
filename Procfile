@@ -1,1 +1,1 @@
-web: gunicorn covidapp.asgi
+web: python manage.py migrate && gunicorn covidapp.wsgi
