@@ -23,3 +23,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view()),
     path('daily/', DailyDictView.as_view())
 ]
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+# ... the rest of your URLconf goes here ...
+
+urlpatterns += staticfiles_urlpatterns()
