@@ -134,3 +134,5 @@ REST_FRAMEWORK = {
 }
 import os
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+DJANGO_SUPERUSER_PASSWORD = 'test'
