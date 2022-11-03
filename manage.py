@@ -18,5 +18,8 @@ def main():
     execute_from_command_line(sys.argv)
 
 
+from covidapp.settings import BASE_DIR, STATIC_ROOT
+
 if __name__ == '__main__':
+    print(BASE_DIR, STATIC_ROOT)
     main()
