@@ -1,2 +1,2 @@
 # covidapp
-Небольшой учебный бэкенд на DRF
+Our study project based on DRF
